@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+
+{% block title %}Exploratory Analysis — Netflix Movies and TV Shows{% endblock %}
+
+{% block content %}
+<section style="padding: 60px 0 100px;">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-pill">In-Depth Investigation</span>
+        <h1 class="section-title">Exploratory Data Analysis</h1>
+        <p class="section-subtitle">
+          Empirical findings derived from 6,234 catalog records, normalized across multi-value dimensions.
+        </p>
+      </div>
+      <div>
+        <a href="{{ url_for('visualizations') }}" class="btn-secondary">
+          <span>View Charts</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Section 1: Content Type Breakdown & Runtime Dynamics -->
+    <div class="cards-grid-2" style="margin-bottom: 40px;">
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <span class="pill-tag accent-peach">Content Distribution</span>
+          <h2 class="showcase-card-title">Movies vs. TV Shows Split</h2>
+          <p class="showcase-card-desc">
+            The catalog is composed of <strong>4,265 Movies (68.42%)</strong> and <strong>1,969 TV Shows (31.58%)</strong>.
+            For every TV show, Netflix hosts approximately 2.17 feature films.
+          </p>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Content Type</th>
+                <th>Count</th>
+                <th>Percentage</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in summary.content_type %}
+              <tr>
+                <td><strong style="color: #ffffff;">{{ item.type }}</strong></td>
+                <td>{{ item.count }}</td>
+                <td>
+                  <span class="pill-tag {% if item.type == 'Movie' %}accent-red{% else %}accent-blue{% endif %}" style="font-size: 11px; padding: 4px 10px;">
+                    {{ item.percentage }}%
+                  </span>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <span class="pill-tag accent-blue">Runtime Dynamics</span>
+          <h2 class="showcase-card-title">Duration & Season Benchmarks</h2>
+          <p class="showcase-card-desc">
+            Detailed statistical measures of movie running times (minutes) and television series longevity (seasons).
+          </p>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;">
+          <div style="background: var(--bg-card); padding: 22px; border-radius: var(--radius-md); border: 1px solid var(--border-card);">
+            <div style="font-family: var(--font-ui); font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px;">Median Movie Runtime</div>
+            <div style="font-family: var(--font-display); font-size: 40px; color: var(--accent-red); margin: 6px 0 2px;">
+              {{ summary.movie_stats.median }} min
+            </div>
+            <div style="font-family: var(--font-body); font-size: 12px; color: var(--text-secondary);">Mean: {{ summary.movie_stats.mean }} min | Range: {{ summary.movie_stats.min }}–{{ summary.movie_stats.max }} min</div>
+          </div>
+          <div style="background: var(--bg-card); padding: 22px; border-radius: var(--radius-md); border: 1px solid var(--border-card);">
+            <div style="font-family: var(--font-ui); font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px;">Single-Season TV Ratio</div>
+            <div style="font-family: var(--font-display); font-size: 40px; color: var(--accent-blue); margin: 6px 0 2px;">
+              {{ summary.tv_stats.single_season_pct }}%
+            </div>
+            <div style="font-family: var(--font-body); font-size: 12px; color: var(--text-secondary);">67.1% of TV series conclude in 1 season</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: Top Countries & Top Genres -->
+    <div class="cards-grid-2" style="margin-bottom: 40px;">
+      <!-- Countries -->
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <span class="pill-tag accent-peach">Geography</span>
+          <h2 class="showcase-card-title">Top 10 Content-Producing Nations</h2>
+          <p class="showcase-card-desc">
+            Normalized across multi-country co-productions. United States leads with 2,610 associations, followed by India (838) and the UK (602).
+          </p>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Country</th>
+                <th>Titles Produced</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for c in summary.top_countries %}
+              <tr>
+                <td><code>#{{ loop.index }}</code></td>
+                <td><strong style="color: #ffffff;">{{ c.country }}</strong></td>
+                <td><span class="pill-tag accent-peach" style="font-size: 11px; padding: 4px 10px;">{{ c.count }}</span></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Genres -->
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <span class="pill-tag accent-green">Categorization</span>
+          <h2 class="showcase-card-title">Top 10 Most Common Genres</h2>
+          <p class="showcase-card-desc">
+            Extracted from comma-delimited catalog listings. International Movies and Dramas dominate the library composition.
+          </p>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Genre / Category</th>
+                <th>Occurrences</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for g in summary.top_genres %}
+              <tr>
+                <td><code>#{{ loop.index }}</code></td>
+                <td><strong style="color: #ffffff;">{{ g.genre }}</strong></td>
+                <td><span class="pill-tag accent-green" style="font-size: 11px; padding: 4px 10px;">{{ g.count }}</span></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Longest Content Standouts -->
+    <div class="cards-grid-2">
+      <!-- Longest Movies -->
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <span class="pill-tag accent-red">Extremes</span>
+          <h2 class="showcase-card-title">Longest Feature Films</h2>
+          <p class="showcase-card-desc">
+            Films exhibiting extraordinary elapsed runtimes on the platform.
+          </p>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Runtime</th>
+                <th>Year</th>
+                <th>Country</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for m in summary.longest_movies %}
+              <tr>
+                <td><strong style="color: #ffffff;">{{ m.title }}</strong></td>
+                <td><span class="pill-tag accent-red" style="font-size: 11px; padding: 4px 10px;">{{ m.duration_minutes }} min</span></td>
+                <td>{{ m.release_year }}</td>
+                <td>{{ m.country | default('N/A') }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Longest TV Shows -->
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <span class="pill-tag accent-blue">Longevity</span>
+          <h2 class="showcase-card-title">TV Series with Most Seasons</h2>
+          <p class="showcase-card-desc">
+            Acquired and syndicated multi-season flagship television properties.
+          </p>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Series Title</th>
+                <th>Seasons</th>
+                <th>Year</th>
+                <th>Country</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for t in summary.longest_tv %}
+              <tr>
+                <td><strong style="color: #ffffff;">{{ t.title }}</strong></td>
+                <td><span class="pill-tag accent-blue" style="font-size: 11px; padding: 4px 10px;">{{ t.seasons_count }} Seasons</span></td>
+                <td>{{ t.release_year }}</td>
+                <td>{{ t.country | default('N/A') }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

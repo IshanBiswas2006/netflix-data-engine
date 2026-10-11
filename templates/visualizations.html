@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block title %}Production Visualizations — Netflix Movies and TV Shows Analysis{% endblock %}
+
+{% block content %}
+<section style="padding: 60px 0 100px;">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-pill">Visual Analytics Gallery</span>
+        <h1 class="section-title">Production Visualizations</h1>
+        <p class="section-subtitle">
+          8 standardized Matplotlib charts generated from actual catalog data, styled harmoniously with our dark palette.
+        </p>
+      </div>
+    </div>
+
+    <!-- Chart 1: Donut Split -->
+    <div class="chart-card" id="chart-01">
+      <div class="chart-card-img-wrap">
+        <img src="{{ url_for('static', filename='images/charts/01_movies_vs_tv_shows.png') }}" alt="Movies vs TV Shows Split" loading="lazy">
+      </div>
+      <div class="chart-card-body">
+        <h2 class="chart-card-title">
+          <span class="pill-tag accent-peach" style="margin-bottom:0;">Figure 01</span>
+          <span>Catalog Composition: Movies vs. TV Shows</span>
+        </h2>
+        <p class="chart-card-desc">
+          Evaluates the proportional split between standalone feature-length films and episodic series. Out of 6,234 catalog entries, 4,265 (68.42%) are Movies, while 1,969 (31.58%) are TV Shows.
+        </p>
+        <div class="chart-card-insights">
+          <strong>Key Insight:</strong> Feature films outnumber episodic TV shows by more than 2:1, offering rapid catalog diversity while episodic shows provide long-term engagement.
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 2: Release Year Trends -->
+    <div class="chart-card" id="chart-02">
+      <div class="chart-card-img-wrap">
+        <img src="{{ url_for('static', filename='images/charts/02_titles_by_release_year.png') }}" alt="Titles by Release Year" loading="lazy">
+      </div>
+      <div class="chart-card-body">
+        <h2 class="chart-card-title">
+          <span class="pill-tag accent-peach" style="margin-bottom:0;">Figure 02</span>
+          <span>Content Production Trends by Release Year (1990–2020)</span>
+        </h2>
+        <p class="chart-card-desc">
+          Examines the vintage of titles hosted on the platform. The majority of content is concentrated in recent production years (2016–2019), representing modern originals and contemporary studio licensing.
+        </p>
+        <div class="chart-card-insights">
+          <strong>Key Insight:</strong> Content produced between 2017 and 2019 dominates catalog volume, reflecting the transition towards streaming-first production.
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 3: Top 10 Countries -->
+    <div class="chart-card" id="chart-03">
+      <div class="chart-card-img-wrap">
+        <img src="{{ url_for('static', filename='images/charts/03_top_10_countries.png') }}" alt="Top 10 Content Producing Countries" loading="lazy">
+      </div>
+      <div class="chart-card-body">
+        <h2 class="chart-card-title">
+          <span class="pill-tag accent-peach" style="margin-bottom:0;">Figure 03</span>
+          <span>Top 10 Content Producing Countries</span>
+        </h2>
+        <p class="chart-card-desc">
+          Exploded co-production metrics reveal geographic production contributions. The United States leads (2,610 titles), with India ranking second (838 titles) and the United Kingdom third (602 titles).
+        </p>
+        <div class="chart-card-insights">
+          <strong>Key Insight:</strong> International territories (India, UK, France, Japan, South Korea) represent massive creative hubs expanding Netflix's non-English programming.
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 4: Top 10 Genres -->
+    <div class="chart-card" id="chart-04">
+      <div class="chart-card-img-wrap">
+        <img src="{{ url_for('static', filename='images/charts/04_top_10_genres.png') }}" alt="Top 10 Genres" loading="lazy">
+      </div>
+      <div class="chart-card-body">
+        <h2 class="chart-card-title">
+          <span class="pill-tag accent-peach" style="margin-bottom:0;">Figure 04</span>
+          <span>Top 10 Most Common Catalog Genres</span>
+        </h2>
+        <p class="chart-card-desc">
+          Aggregates normalized genres. "International Movies" (1,927) and "Dramas" (1,623) lead overall volume, followed by Comedies (1,113) and International TV Shows (1,001).
+        </p>
+        <div class="chart-card-insights">
+          <strong>Key Insight:</strong> Cross-border cinema and drama narrative structures form the foundational pillar of the Netflix viewing catalog.
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 5: Ratings Distribution -->
+    <div class="chart-card" id="chart-05">
+      <div class="chart-card-img-wrap">
+        <img src="{{ url_for('static', filename='images/charts/05_content_rating_distribution.png') }}" alt="Content Maturity Ratings" loading="lazy">
+      </div>
+      <div class="chart-card-body">
+        <h2 class="chart-card-title">
+          <span class="pill-tag accent-peach" style="margin-bottom:0;">Figure 05</span>
+          <span>Content Maturity Rating Distribution</span>
+        </h2>
+        <p class="chart-card-desc">
+          Visualizes audience demographics across standardized maturity classifications. TV-MA (2,027 titles) and TV-14 (1,698 titles) represent nearly 60% of all programming.
+        </p>
+        <div class="chart-card-insights">
+          <strong>Key Insight:</strong> The library is predominantly aimed at teen and adult audiences, supporting complex narrative themes over purely young children content.
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 6: Movie Runtime -->
+    <div class="chart-card" id="chart-06">
+      <div class="chart-card-img-wrap">
+        <img src="{{ url_for('static', filename='images/charts/06_movie_duration_distribution.png') }}" alt="Movie Runtime Distribution" loading="lazy">
+      </div>
+      <div class="chart-card-body">
+        <h2 class="chart-card-title">
+          <span class="pill-tag accent-peach" style="margin-bottom:0;">Figure 06</span>
+          <span>Movie Runtime Distribution (Minutes)</span>
+        </h2>
+        <p class="chart-card-desc">
+          Histogram of feature film runtimes with median (98 min) and mean (99.1 min) markers. Displays standard Gaussian-like distribution clustering between 86 and 115 minutes.
+        </p>
+        <div class="chart-card-insights">
+          <strong>Key Insight:</strong> Standard feature films center closely around the 90-100 minute mark, with outliers extending from 3 minutes up to 312 minutes (*Bandersnatch*).
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 7: TV Show Seasons -->
+    <div class="chart-card" id="chart-07">
+      <div class="chart-card-img-wrap">
+        <img src="{{ url_for('static', filename='images/charts/07_tv_show_seasons_distribution.png') }}" alt="TV Show Season Count" loading="lazy">
+      </div>
+      <div class="chart-card-body">
+        <h2 class="chart-card-title">
+          <span class="pill-tag accent-peach" style="margin-bottom:0;">Figure 07</span>
+          <span>TV Show Season Count Breakdown</span>
+        </h2>
+        <p class="chart-card-desc">
+          Shows that 67.1% of all television series on Netflix have only 1 season, while 15.4% achieve 2 seasons, and fewer than 10% exceed 3 seasons.
+        </p>
+        <div class="chart-card-insights">
+          <strong>Key Insight:</strong> Steep season attrition highlights high experimentation with limited mini-series and competitive season renewal thresholds.
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 8: Ingestion Velocity -->
+    <div class="chart-card" id="chart-08">
+      <div class="chart-card-img-wrap">
+        <img src="{{ url_for('static', filename='images/charts/08_titles_added_over_time.png') }}" alt="Titles Added Over Time" loading="lazy">
+      </div>
+      <div class="chart-card-body">
+        <h2 class="chart-card-title">
+          <span class="pill-tag accent-peach" style="margin-bottom:0;">Figure 08</span>
+          <span>Ingestion Velocity: Titles Added per Year</span>
+        </h2>
+        <p class="chart-card-desc">
+          Tracks the historical velocity of title additions onto Netflix. Modest additions prior to 2015 surged exponentially to 1,300 in 2017, 1,782 in 2018, and peaked at 2,349 in 2019.
+        </p>
+        <div class="chart-card-insights">
+          <strong>Key Insight:</strong> Dramatic acceleration after 2015 marks Netflix's worldwide global expansion and aggressive original content budget ramp.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

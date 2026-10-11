@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Netflix Movies and TV Shows Analysis{% endblock %}</title>
+  <meta name="description" content="End-to-end data analytics and interactive web platform exploring Netflix movies, TV shows, genres, countries, ratings, and catalog trends.">
+  
+  <!-- Favicons from Reference Project -->
+  <link rel="icon" href="{{ url_for('static', filename='icons/default-favicon-dark.v1.png') }}" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="{{ url_for('static', filename='icons/default-favicon-light.v1.png') }}" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/default-touch-icon.v3.png') }}">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <!-- Custom Cursor Element (Reference Portfolio Spec) -->
+  <div class="custom-cursor" id="custom-cursor" aria-hidden="true"></div>
+
+  <!-- Ambient Multi-Layer Glow Canvas -->
+  <div class="ambient-glow-wrapper">
+    <div class="glow-orb glow-orb-primary"></div>
+    <div class="glow-orb glow-orb-secondary"></div>
+    <div class="glow-orb glow-orb-accent"></div>
+  </div>
+
+
+  <!-- Sticky Frosted Header (Reference Navigation Specification) -->
+  <header class="site-header" id="site-header">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="{{ url_for('index') }}" class="brand-link" id="brand-logo" aria-label="Netflix Analytics Home">
+          <span class="brand-badge">NETFLIX</span>
+          <span class="brand-subtitle">Analytics Platform</span>
+        </a>
+
+        <button class="mobile-toggle" aria-label="Toggle Navigation" aria-expanded="false" id="mobile-nav-toggle">
+          ☰
+        </button>
+
+        <ul class="nav-links" id="main-navigation">
+          <li>
+            <a href="{{ url_for('index') }}" class="nav-link {% if active_page == 'index' %}active{% endif %}" id="nav-home">
+              <span>Overview</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('analysis') }}" class="nav-link {% if active_page == 'analysis' %}active{% endif %}" id="nav-analysis">
+              <span>Analysis</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('visualizations') }}" class="nav-link {% if active_page == 'visualizations' %}active{% endif %}" id="nav-visualizations">
+              <span>Visualizations</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('sql_queries') }}" class="nav-link {% if active_page == 'sql_queries' %}active{% endif %}" id="nav-sql">
+              <span>SQL Engine</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('about') }}" class="nav-link {% if active_page == 'about' %}active{% endif %}" id="nav-about">
+              <span>About</span>
+            </a>
+          </li>
+        </ul>
+
+        <a href="{{ url_for('analysis') }}" class="nav-cta" id="nav-cta-btn">
+          <span>Explore Insights</span>
+          <span class="nav-cta-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content View -->
+  <main class="main-content" id="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer (Reference Layout & Visuals) -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <span class="footer-brand">NETFLIX ANALYTICS</span>
+          <p class="footer-text">
+            End-to-end data analytics platform investigating 6,234 catalog titles.
+            Built with Python, Pandas, Matplotlib, MySQL, and Flask.
+          </p>
+        </div>
+        <ul class="footer-links">
+          <li><a href="{{ url_for('index') }}" class="footer-link">Overview</a></li>
+          <li><a href="{{ url_for('analysis') }}" class="footer-link">Analysis</a></li>
+          <li><a href="{{ url_for('visualizations') }}" class="footer-link">Visualizations</a></li>
+          <li><a href="{{ url_for('sql_queries') }}" class="footer-link">SQL Engine</a></li>
+          <li><a href="{{ url_for('about') }}" class="footer-link">Methodology</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

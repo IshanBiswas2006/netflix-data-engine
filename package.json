@@ -1,0 +1,17 @@
+{
+  "name": "neha-yadav-portfolio",
+  "version": "1.0.0",
+  "description": "Full localized clone of Neha Yadav design portfolio with all assets, css, js, fonts, and videos.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "portfolio",
+    "framer",
+    "clone",
+    "assets"
+  ],
+  "author": "",
+  "license": "ISC"
+}

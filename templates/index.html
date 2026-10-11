@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}Netflix Movies and TV Shows Analysis — Catalog Intelligence{% endblock %}
+
+{% block content %}
+<!-- Hero Section with Reference 3D Floating Accents & Typography -->
+<section class="hero-section">
+  <!-- Decorative 3D floating stickers from reference design -->
+  <div class="hero-decorations">
+    <img src="{{ url_for('static', filename='images/hPDjT3MQ6lSLBIRvQVNV9w4bC0.png') }}" alt="" class="sticker-pyramid" aria-hidden="true">
+    <img src="{{ url_for('static', filename='images/bhTVukKt2qEWqnmBkeEEFdlI68.png') }}" alt="" class="sticker-ramen" aria-hidden="true">
+    <img src="{{ url_for('static', filename='images/Wu1VeZ4WyWRp5BSL0sOEZrtEAEI.png') }}" alt="" class="sticker-star" aria-hidden="true">
+    <img src="{{ url_for('static', filename='images/9Nfx39XbLVekeKuPt20V5E.png') }}" alt="" class="sticker-camera" aria-hidden="true">
+  </div>
+
+  <div class="container">
+    <div class="hero-content-wrap">
+      <div class="hero-pill-badge">
+        <span class="dot"></span>
+        <span>Empirical Data Analytics & SQL Intelligence</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="text-gradient">NETFLIX CATALOG</span><br>
+        <span>INTELLIGENCE</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        A complete, reproducible data analytics platform investigating <strong>6,234 catalog titles</strong>.
+        Explore genre evolution, international content diversification, maturity rating trends,
+        and digital ingestion velocity across the world's leading streaming platform.
+      </p>
+
+      <div class="hero-actions">
+        <a href="{{ url_for('analysis') }}" class="btn-primary" id="hero-btn-analysis">
+          <span>View In-Depth Analysis</span>
+          <span>→</span>
+        </a>
+        <a href="{{ url_for('visualizations') }}" class="btn-secondary" id="hero-btn-charts">
+          <span>Browse Visualizations</span>
+        </a>
+        <a href="{{ url_for('sql_queries') }}" class="btn-secondary" id="hero-btn-sql">
+          <span>SQL Engine</span>
+        </a>
+      </div>
+
+      <!-- Core Metrics Grid (Reference Stat Cards) -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-label">Total Titles</span>
+            <span class="pill-tag accent-peach">Validated</span>
+          </div>
+          <div class="stat-value">{{ overview.total_titles | default('6,234') }}</div>
+          <div class="stat-desc">Distinct catalog entries analyzed</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-label">Movies</span>
+            <span class="pill-tag accent-red">{{ overview.movie_percentage }}%</span>
+          </div>
+          <div class="stat-value">{{ overview.movies_count | default('4,265') }}</div>
+          <div class="stat-desc">Avg runtime: {{ overview.avg_movie_duration_min }} mins</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-label">TV Shows</span>
+            <span class="pill-tag accent-blue">{{ overview.tv_show_percentage }}%</span>
+          </div>
+          <div class="stat-value">{{ overview.tv_shows_count | default('1,969') }}</div>
+          <div class="stat-desc">Avg length: {{ overview.avg_tv_seasons }} seasons</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-label">Catalog Vintage</span>
+            <span class="pill-tag accent-green">95 Yrs</span>
+          </div>
+          <div class="stat-value">{{ overview.earliest_release_year }}–{{ overview.latest_release_year }}</div>
+          <div class="stat-desc">Spanning 95 years of cinematography</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Feature Showcase Section (Reference 3-Column Card Architecture) -->
+<section style="padding: 60px 0 100px;">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-pill">Core Capabilities</span>
+        <h2 class="section-title">Analytical Dimensions</h2>
+        <p class="section-subtitle">Navigate through the primary investigation areas of this study.</p>
+      </div>
+    </div>
+
+    <div class="cards-grid-3">
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <span class="pill-tag accent-peach">Exploratory Analysis</span>
+          <h3 class="showcase-card-title">Movies vs. TV Shows Breakdown</h3>
+          <p class="showcase-card-desc">
+            Detailed breakdown of movie lengths, episodic seasons, international co-productions,
+            and content rating profiles with normalized statistical tests.
+          </p>
+        </div>
+        <a href="{{ url_for('analysis') }}" class="btn-secondary" style="align-self: flex-start;">
+          <span>Explore Analysis</span>
+          <span>→</span>
+        </a>
+      </div>
+
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <span class="pill-tag accent-blue">Visual Intelligence</span>
+          <h3 class="showcase-card-title">8 Production Visualizations</h3>
+          <p class="showcase-card-desc">
+            Standardized Matplotlib charts rendered directly from the cleaned pipeline,
+            matching the dark aesthetic with high-contrast typography and clear labels.
+          </p>
+        </div>
+        <a href="{{ url_for('visualizations') }}" class="btn-secondary" style="align-self: flex-start;">
+          <span>View Charts</span>
+          <span>→</span>
+        </a>
+      </div>
+
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <span class="pill-tag accent-green">Relational SQL</span>
+          <h3 class="showcase-card-title">MySQL Analytical Queries</h3>
+          <p class="showcase-card-desc">
+            10 analytical SQL questions solved with clean queries, relational table joins,
+            performance indexes, and live execution validation tables.
+          </p>
+        </div>
+        <a href="{{ url_for('sql_queries') }}" class="btn-secondary" style="align-self: flex-start;">
+          <span>Inspect Queries</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Sample Catalog Showcase Table -->
+    <div class="section-header" style="margin-top: 80px;">
+      <div>
+        <span class="section-pill">Sample Catalog Records</span>
+        <h2 class="section-title">Verified Ingested Titles</h2>
+        <p class="section-subtitle">Real records extracted from the validated cleaned dataset.</p>
+      </div>
+      <div>
+        <input type="text" id="table-search-input" class="table-search-input" placeholder="Search catalog (e.g. Movie, India, TV-MA)...">
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Show ID</th>
+            <th>Type</th>
+            <th>Title</th>
+            <th>Country</th>
+            <th>Release Year</th>
+            <th>Rating</th>
+            <th>Duration</th>
+            <th>Listed In</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for title in recent_sample %}
+          <tr>
+            <td><code>{{ title.show_id }}</code></td>
+            <td>
+              <span class="pill-tag {% if title.type == 'Movie' %}accent-red{% else %}accent-blue{% endif %}" style="font-size: 11px; padding: 4px 10px;">
+                {{ title.type }}
+              </span>
+            </td>
+            <td><strong style="color: #ffffff;">{{ title.title }}</strong></td>
+            <td>{{ title.country | default('N/A') }}</td>
+            <td>{{ title.release_year }}</td>
+            <td><span class="pill-tag" style="font-size: 11px; padding: 3px 8px;">{{ title.rating | default('NR') }}</span></td>
+            <td>{{ title.duration }}</td>
+            <td style="max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-muted);">
+              {{ title.listed_in }}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}

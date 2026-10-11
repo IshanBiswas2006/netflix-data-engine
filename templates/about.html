@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}About & Methodology — Netflix Movies and TV Shows Analysis{% endblock %}
+
+{% block content %}
+<section style="padding: 60px 0 100px;">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-pill">Project Documentation</span>
+        <h1 class="section-title">Methodology & Architecture</h1>
+        <p class="section-subtitle">
+          End-to-end design, data engineering pipeline, database modeling, and technical stack.
+        </p>
+      </div>
+    </div>
+
+    <!-- Overview Statement Card (Reference Elevated Card Spec) -->
+    <div class="showcase-card" style="margin-bottom: 48px;">
+      <div class="showcase-card-header">
+        <span class="pill-tag accent-peach">Executive Summary</span>
+        <h2 class="showcase-card-title" style="font-size: 34px; margin-top: 14px;">End-to-End Analytics Platform</h2>
+        <p class="showcase-card-desc" style="font-size: 16px; margin-bottom: 20px;">
+          The <strong>Netflix Movies and TV Shows Analysis</strong> project was built to deliver an end-to-end demonstration
+          of full-stack data analytics. Spanning data ingestion, reproducible cleaning, mathematical descriptive analysis,
+          relational SQL database modeling, production Matplotlib visualization, and interactive web engineering,
+          the system translates raw, unstructured streaming metadata into empirical business intelligence.
+        </p>
+      </div>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <span class="pill-tag accent-red">Python 3.14</span>
+        <span class="pill-tag accent-blue">Pandas 3.0</span>
+        <span class="pill-tag accent-green">NumPy 2.5</span>
+        <span class="pill-tag accent-peach">Matplotlib 3.11</span>
+        <span class="pill-tag">MySQL 8.0</span>
+        <span class="pill-tag">Flask 3.1</span>
+        <span class="pill-tag">Pytest 9.1</span>
+      </div>
+    </div>
+
+    <!-- Pipeline Stages (Reference 3-Column Grid) -->
+    <div class="section-header" style="margin-top: 60px;">
+      <div>
+        <span class="section-pill">Engineering Lifecycle</span>
+        <h2 class="section-title">Data Pipeline Architecture</h2>
+        <p class="section-subtitle">Each phase feeds deterministically into the next.</p>
+      </div>
+    </div>
+
+    <div class="cards-grid-3">
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <span class="pill-tag accent-peach">Phase 01</span>
+          <h3 class="showcase-card-title">Data Acquisition & Validation</h3>
+          <p class="showcase-card-desc">
+            Ingested raw dataset of 6,234 records across 12 features. Preserved original CSV in <code>data/raw/</code>
+            with automated schema assertions verifying column completeness and 100% unique primary keys.
+          </p>
+        </div>
+      </div>
+
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <span class="pill-tag accent-blue">Phase 02</span>
+          <h3 class="showcase-card-title">Reproducible Cleaning</h3>
+          <p class="showcase-card-desc">
+            Separated composite <code>duration</code> into distinct numeric fields (<code>duration_minutes</code> for Movies, <code>seasons_count</code> for TV Shows).
+            Parsed human-readable date strings into ISO-8601 dates and extracted calendar dimensions.
+          </p>
+        </div>
+      </div>
+
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <span class="pill-tag accent-green">Phase 03</span>
+          <h3 class="showcase-card-title">Exploratory Analysis</h3>
+          <p class="showcase-card-desc">
+            Exploded multi-value comma-separated strings (countries, genres, directors) to calculate mathematically
+            unbiased category frequency rankings without double-counting unique titles.
+          </p>
+        </div>
+      </div>
+
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <span class="pill-tag accent-red">Phase 04</span>
+          <h3 class="showcase-card-title">Relational SQL Modeling</h3>
+          <p class="showcase-card-desc">
+            Designed relational database schemas with <code>netflix_titles</code>, <code>title_countries</code>, and <code>title_genres</code> tables.
+            Engineered 10 analytical SQL queries with performance indices and aggregate subqueries.
+          </p>
+        </div>
+      </div>
+
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <span class="pill-tag accent-peach">Phase 05</span>
+          <h3 class="showcase-card-title">Data Visualizations</h3>
+          <p class="showcase-card-desc">
+            Created 8 standardized Matplotlib charts saved into <code>static/images/charts/</code>. Styled to match
+            the dark UI theme with high-contrast typography, clear labels, and zero synthetic data.
+          </p>
+        </div>
+      </div>
+
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <span class="pill-tag accent-blue">Phase 06</span>
+          <h3 class="showcase-card-title">Flask Application & UI</h3>
+          <p class="showcase-card-desc">
+            Developed lightweight Flask web server serving 5 dedicated Jinja template views. Integrated custom typography
+            (Tanker, Space Grotesk, Inter), sticky frosted header, and responsive layout breakpoints.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Limitations & Considerations -->
+    <div class="cards-grid-2" style="margin-top: 48px;">
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <span class="pill-tag accent-red">Methodology</span>
+          <h3 class="showcase-card-title">Dataset Limitations</h3>
+        </div>
+        <ul style="padding-left: 20px; font-family: var(--font-ui); font-size: 15px; color: var(--text-secondary); line-height: 1.8;">
+          <li>Directorial information is unlisted for 31.58% of entries, predominantly episodic TV shows.</li>
+          <li>Streaming viewership metrics, box office earnings, and viewer ratings (e.g. IMDb/Rotten Tomatoes) are not included in the raw catalog schema.</li>
+          <li>Date added timestamps reflect digital library availability on Netflix, not theatrical release.</li>
+        </ul>
+      </div>
+
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <span class="pill-tag accent-green">Roadmap</span>
+          <h3 class="showcase-card-title">Future Enhancements</h3>
+        </div>
+        <ul style="padding-left: 20px; font-family: var(--font-ui); font-size: 15px; color: var(--text-secondary); line-height: 1.8;">
+          <li>Automated ingestion via external streaming metadata APIs (TMDB, OMDb).</li>
+          <li>Interactive client-side filtering by genre, release decade, and country of origin.</li>
+          <li>Sentiment analysis of textual synopses using natural language processing (NLP).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

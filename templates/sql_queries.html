@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}SQL Analytics Engine — Netflix Movies and TV Shows{% endblock %}
+
+{% block content %}
+<section style="padding: 60px 0 100px;">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-pill">Database & Relational Analytics</span>
+        <h1 class="section-title">SQL Analytics Engine</h1>
+        <p class="section-subtitle">
+          10 core analytical questions with production SQL queries and real verified result tables.
+        </p>
+      </div>
+    </div>
+
+    <!-- Engine Status Notification -->
+    <div class="alert-banner info" id="sql-engine-status">
+      <div>
+        <strong>Execution Engine:</strong> 
+        All queries below are executed through our structured database query layer 
+        (MySQL relational tables with fallback to our high-performance in-memory SQL verification engine).
+      </div>
+    </div>
+
+    <!-- Search / Filter Input -->
+    <div style="margin-bottom: 36px;">
+      <input type="text" id="table-search-input" class="table-search-input" placeholder="Search within query results (e.g. Movie, India, Drama)...">
+    </div>
+
+    <!-- 10 Analytical Query Accordions -->
+    {% for q in queries %}
+    <div class="query-box" id="query-{{ q.id }}">
+      <div class="query-header" role="button" tabindex="0" aria-expanded="true">
+        <div class="query-header-left">
+          <span class="query-number">{{ q.id }}</span>
+          <div>
+            <div class="query-title">{{ q.title }}</div>
+            <div style="font-family: var(--font-ui); font-size: 14px; color: var(--text-secondary); margin-top: 4px;">{{ q.question }}</div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <span class="query-engine-badge">{{ q.engine }}</span>
+          <span class="query-icon-arrow">▼</span>
+        </div>
+      </div>
+
+      <div class="query-content">
+        <div class="query-question">
+          <strong style="color: var(--text-primary);">Analytical Objective:</strong> {{ q.question }}
+        </div>
+
+        <div style="font-family: var(--font-ui); font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; font-weight: 600;">
+          SQL Query Statement
+        </div>
+        <pre class="sql-code-block"><code>{{ q.sql }}</code></pre>
+
+        <div class="sql-meta-bar">
+          <span class="pill-tag accent-peach" style="font-size: 11px;">Verified Output</span>
+          <span class="pill-tag" style="font-size: 11px;">{{ q.rows | length }} Rows Returned</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                {% for col in q.columns %}
+                <th>{{ col }}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in q.rows %}
+              <tr>
+                {% for col in q.columns %}
+                <td>
+                  {% if col == 'percentage' or 'pct' in col %}
+                    <span class="pill-tag accent-red" style="font-size: 11px; padding: 3px 8px;">{{ row[col] }}%</span>
+                  {% elif col == 'title' %}
+                    <strong style="color: #ffffff;">{{ row[col] }}</strong>
+                  {% else %}
+                    {{ row[col] }}
+                  {% endif %}
+                </td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

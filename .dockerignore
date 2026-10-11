@@ -1,0 +1,37 @@
+# Version control & environments
+.git/
+.gitignore
+.venv/
+env/
+venv/
+ENV/
+
+# Python caches & artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+*.egg-info/
+
+# Testing & notebooks
+.pytest_cache/
+.coverage
+htmlcov/
+tests/
+notebooks/
+reports/
+
+# Reference materials & editor files
+ui ux/
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Secrets & local env
+.env
+.env.local

@@ -32,6 +32,8 @@ DB_PASSWORD = os.getenv('DB_PASSWORD', '')
 DB_NAME = os.getenv('DB_NAME', 'netflix_analysis')
 
 # Flask Configuration
+FLASK_ENV = os.getenv('FLASK_ENV', 'development')
 SECRET_KEY = os.getenv('SECRET_KEY', 'netflix-analytics-secret-key-2026')
-DEBUG = os.getenv('DEBUG', 'True').lower() in ('true', '1', 't')
+DEBUG_DEFAULT = 'False' if FLASK_ENV == 'production' else 'True'
+DEBUG = os.getenv('DEBUG', DEBUG_DEFAULT).lower() in ('true', '1', 't')
 PORT = int(os.getenv('PORT', 5000))

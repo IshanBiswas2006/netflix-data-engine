@@ -23,8 +23,7 @@ tests/
 notebooks/
 reports/
 
-# Reference materials & editor files
-ui ux/
+# IDE & editor temporary files
 .vscode/
 .idea/
 *.swp

@@ -1,249 +1,287 @@
-# Netflix Movies and TV Shows Analysis
+<div align="center">
 
-> An end-to-end data analytics engineering pipeline and production-ready Flask intelligence portal examining catalog composition, international co-productions, runtime dynamics, content maturity, and temporal ingestion velocity across 6,234 Netflix titles.
+# 🎬 Netflix Movies & TV Shows Analysis
 
-[![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.14-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
-[![Flask](https://img.shields.io/badge/Flask-3.1-000000?style=flat&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
-[![Pandas](https://img.shields.io/badge/Pandas-2.2+-150458?style=flat&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
-[![Pytest](https://img.shields.io/badge/Pytest-21%20Passed-0A9EDC?style=flat&logo=pytest&logoColor=white)](https://pytest.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-E50914?style=flat)](LICENSE)
+### Catalog Intelligence Portal — From Raw Data to Production Dashboard
+
+*An end-to-end data analytics engineering pipeline and production-ready Flask portal examining catalog composition, international co-productions, runtime dynamics, content maturity, and ingestion velocity across **6,234 Netflix titles**.*
+
+<br>
+
+[![Live Demo](https://img.shields.io/badge/🚀_LIVE_DEMO-Open_App-E50914?style=for-the-badge&logo=netflix&logoColor=white)](https://netflix-analytics-2uzs.onrender.com/)
+
+<br>
+
+[![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.14-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-3.1-000000?style=flat-square&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![Pandas](https://img.shields.io/badge/Pandas-2.2+-150458?style=flat-square&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Pytest](https://img.shields.io/badge/Pytest-21%20Passed-0A9EDC?style=flat-square&logo=pytest&logoColor=white)](https://pytest.org/)
+[![Deployed on Render](https://img.shields.io/badge/Deployed-Render-46E3B7?style=flat-square&logo=render&logoColor=white)](https://netflix-analytics-2uzs.onrender.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-E50914?style=flat-square)](LICENSE)
+
+</div>
 
 ---
 
-## Live Demo & Preview
+## 🌐 Live Demo & Preview
 
-- **Live Application Deployment**: [Deployment Pending / Ready for Cloud Launch](#deployment-guide)
-  *(Follow the instructions below to deploy in under 3 minutes via Render or Docker)*
-- **Local Application URL**: `http://localhost:5000/`
+| | |
+| :--- | :--- |
+| 🔴 **Live Application** | **[netflix-analytics-2uzs.onrender.com](https://netflix-analytics-2uzs.onrender.com/)** |
+| 💻 **Local URL** | `http://localhost:5000/` |
+
+> ⏳ *Hosted on Render's free tier — the first request may take ~30–60 seconds while the service wakes up.*
+
+<div align="center">
 
 ![Netflix Catalog Intelligence Portal](reports/preview.png)
 
----
-
-## Table of Contents
-
-1. [Project Overview & Purpose](#project-overview--purpose)
-2. [Key Analytical Features](#key-analytical-features)
-3. [Technology Stack](#technology-stack)
-4. [Dataset Schema & Architecture](#dataset-schema--architecture)
-5. [Repository Structure](#repository-structure)
-6. [Prerequisites](#prerequisites)
-7. [Local Setup & Installation](#local-setup--installation)
-8. [Running Locally](#running-locally)
-9. [Automated Testing](#automated-testing)
-10. [Environment Variables](#environment-variables)
-11. [Deployment Method A: Render / PaaS Cloud Web Service](#deployment-method-a-render--paas-cloud-web-service)
-12. [Deployment Method B: Docker & Docker Compose Containerization](#deployment-method-b-docker--docker-compose-containerization)
-13. [Asset & Path Validation](#asset--path-validation)
-14. [Performance & Size Optimization Report](#performance--size-optimization-report)
-15. [Known Limitations & Future Scope](#known-limitations--future-scope)
-16. [License & Attributions](#license--attributions)
+</div>
 
 ---
 
-## Project Overview & Purpose
+## 📑 Table of Contents
 
-The **Netflix Movies and TV Shows Analysis** platform bridges exploratory data science, relational database engineering, and interactive web visualization into a cohesive, production-grade application.
-
-The core objectives:
-1. **Automated ETL Pipeline**: Ingest raw streaming metadata, clean missing attributes, standardize non-uniform date structures into ISO-8601 timestamps, and decompose composite duration metrics (`min` vs `Seasons`).
-2. **Empirical Exploratory Analysis**: Uncover content shifts (Films at 68.4% vs TV Shows at 31.6%), identify top international production hubs (United States, India, United Kingdom), map maturity ratings (TV-MA dominance), and quantify ingestion spikes.
-3. **Relational SQL Database Engine**: Model catalog entities into 3NF normalized tables with bridge tables (`title_countries`, `title_genres`) and execute 10 business-critical analytical queries with SQLite/MySQL fallback.
-4. **Interactive Production Web Portal**: Serve findings through 5 responsive Flask routes styled with a dark obsidian aesthetic system, interactive query accordions, real-time client-side table search, and a custom mouse cursor effect.
+1. [Project Overview](#-project-overview)
+2. [Key Features](#-key-analytical-features)
+3. [Key Insights](#-key-insights-at-a-glance)
+4. [Technology Stack](#-technology-stack)
+5. [Dataset Schema](#-dataset-schema--architecture)
+6. [Repository Structure](#-repository-structure)
+7. [Prerequisites](#-prerequisites)
+8. [Local Setup](#-local-setup--installation)
+9. [Running Locally](#-running-locally)
+10. [Automated Testing](#-automated-testing)
+11. [Environment Variables](#-environment-variables)
+12. [Deployment: Render](#-deployment-method-a-render--paas)
+13. [Deployment: Docker](#-deployment-method-b-docker--docker-compose)
+14. [Asset & Path Validation](#-asset--path-validation)
+15. [Performance Report](#-performance--size-optimization-report)
+16. [Limitations & Future Scope](#-known-limitations--future-scope)
+17. [License & Attributions](#-license--attributions)
 
 ---
 
-## Key Analytical Features
+## 🎯 Project Overview
 
-- **Dynamic Overview Dashboard** (`/`): High-level KPI metric cards (Total Titles, Movie/TV breakdown, vintage range), recent ingest samples, and floating 3D spatial accents.
-- **Exploratory Analytics Engine** (`/analysis`): Statistical tabular breakdown of international production volume, genre frequencies, maturity classifications, runtime quartiles, and TV series longevity.
-- **Data Visualizations Gallery** (`/visualizations`): 8 publication-grade Matplotlib figures utilizing curated dark-mode color palettes, tailored callouts, and clean layout framing.
-- **SQL Analytics Engine** (`/sql-queries`): 10 business questions with interactive expand/collapse SQL accordions, rendered execution syntax, and verified analytical output tables.
-- **Methodology & Architecture** (`/about`): Comprehensive documentation of pipeline architecture, normalization choices, data assumptions, and technical limits.
-- **Fluid Custom Cursor**: Smooth linear interpolation (`requestAnimationFrame` lerp tracking at 60/120fps), inverted color blending (`mix-blend-mode: difference`), button hover expansion, and automatic touch-device suppression.
+The **Netflix Movies and TV Shows Analysis** platform bridges exploratory data science, relational database engineering, and interactive web visualization into one cohesive, production-grade application.
+
+| # | Objective | Description |
+| :-: | :--- | :--- |
+| 1️⃣ | **Automated ETL Pipeline** | Ingest raw metadata, clean missing attributes, standardize dates to ISO-8601, and decompose duration (`min` vs `Seasons`). |
+| 2️⃣ | **Exploratory Analysis** | Uncover content shifts, top production hubs, maturity ratings, and ingestion spikes. |
+| 3️⃣ | **Relational SQL Engine** | 3NF normalized tables with bridge tables (`title_countries`, `title_genres`) and 10 analytical queries with SQLite/MySQL fallback. |
+| 4️⃣ | **Interactive Web Portal** | 5 responsive Flask routes, dark obsidian design, SQL accordions, live table search, and a custom cursor effect. |
 
 ---
 
-## Technology Stack
+## ✨ Key Analytical Features
+
+| Route | Feature | Highlights |
+| :--- | :--- | :--- |
+| `/` | 📊 **Overview Dashboard** | KPI cards (Total Titles, Movie/TV split, vintage range), recent ingest samples, floating 3D accents |
+| `/analysis` | 🔎 **Exploratory Analytics** | Production volume, genre frequencies, maturity classes, runtime quartiles, TV longevity |
+| `/visualizations` | 🖼️ **Visualizations Gallery** | 8 publication-grade Matplotlib figures with curated dark-mode palettes |
+| `/sql-queries` | 🗄️ **SQL Analytics Engine** | 10 business questions, expandable SQL accordions, verified output tables |
+| `/about` | 📘 **Methodology** | Pipeline architecture, normalization choices, assumptions, technical limits |
+
+🖱️ **Fluid Custom Cursor** — `requestAnimationFrame` lerp tracking (60/120fps), `mix-blend-mode: difference`, hover expansion, automatic touch-device suppression.
+
+---
+
+## 💡 Key Insights at a Glance
+
+| Metric | Finding |
+| :--- | :--- |
+| 🎥 **Content Split** | Movies **68.4%** · TV Shows **31.6%** |
+| 🌍 **Top Production Hubs** | United States, India, United Kingdom |
+| 🔞 **Dominant Rating** | TV-MA |
+| 📅 **Catalog Span** | 1925 – 2020 |
+| 📈 **Platform Additions** | 2008 – 2020 (with notable ingestion spikes) |
+
+---
+
+## 🛠️ Technology Stack
 
 | Layer | Technologies & Tools |
 | :--- | :--- |
-| **Backend Framework** | Python 3.11 / 3.14, Flask 3.1, Werkzeug, Jinja2 |
+| **Backend** | Python 3.11 / 3.14, Flask 3.1, Werkzeug, Jinja2 |
 | **Data Engineering** | Pandas 2.2+, NumPy 1.26+ |
-| **Data Visualization** | Matplotlib 3.8+ (custom dark-mode design system) |
-| **Relational Database** | MySQL Server 8.0, In-Memory SQLite fallback engine |
-| **Frontend Architecture**| Vanilla HTML5, Modern CSS3 (CSS Variables, Flexbox, Grid), JavaScript (ES6+) |
-| **Typography** | Tanker, Space Grotesk, Inter (locally self-hosted `.woff2`) |
-| **Production WSGI** | Gunicorn 21.2+ (multi-worker concurrency) |
-| **Containerization** | Docker, Docker Compose (Linux `python:3.11-slim`) |
-| **Testing & Quality** | Pytest 9.1 (21 automated unit and route tests) |
+| **Visualization** | Matplotlib 3.8+ (custom dark-mode design system) |
+| **Database** | MySQL Server 8.0, In-Memory SQLite fallback |
+| **Frontend** | HTML5, CSS3 (Variables, Flexbox, Grid), JavaScript ES6+ |
+| **Typography** | Tanker, Space Grotesk, Inter (self-hosted `.woff2`) |
+| **Production WSGI** | Gunicorn 21.2+ (multi-worker) |
+| **Containerization** | Docker, Docker Compose (`python:3.11-slim`) |
+| **Testing** | Pytest 9.1 (21 automated tests) |
 
 ---
 
-## Dataset Schema & Architecture
+## 🧬 Dataset Schema & Architecture
 
-- **Source**: Kaggle Netflix Movies and TV Shows Metadata (`netflix_titles.csv`)
-- **Volume**: 6,234 unique catalog titles (1925 – 2020)
+- **Source**: [Kaggle — Netflix Movies and TV Shows](https://www.kaggle.com/datasets/shivamb/netflix-shows) (`netflix_titles.csv`)
+- **Volume**: 6,234 unique titles (1925 – 2020)
 
 | Attribute | Source Type | Cleaned Type | Description |
 | :--- | :--- | :--- | :--- |
-| `show_id` | `int64` | `BIGINT` | Unique primary key identifier |
+| `show_id` | `int64` | `BIGINT` | Unique primary key |
 | `type` | `object` | `VARCHAR(20)` | `Movie` or `TV Show` |
-| `title` | `object` | `VARCHAR(255)` | Official streaming catalog title |
+| `title` | `object` | `VARCHAR(255)` | Official catalog title |
 | `director` | `object` | `TEXT` | Credited directors |
-| `cast` | `object` | `TEXT` | Credited cast members |
-| `country` | `object` | `VARCHAR(255)` | Country / co-producing territories |
+| `cast` | `object` | `TEXT` | Credited cast |
+| `country` | `object` | `VARCHAR(255)` | Co-producing territories |
 | `date_added` | `object` | `VARCHAR(50)` | Raw ingest date string |
-| `date_added_clean` | *Engineered* | `DATE` | Standardized ISO-8601 date (`YYYY-MM-DD`) |
-| `year_added` | *Engineered* | `INT` | Extracted platform release year (2008–2020) |
-| `month_added` | *Engineered* | `INT` | Extracted platform release month (1–12) |
+| `date_added_clean` | *Engineered* | `DATE` | ISO-8601 date (`YYYY-MM-DD`) |
+| `year_added` | *Engineered* | `INT` | Platform release year (2008–2020) |
+| `month_added` | *Engineered* | `INT` | Platform release month (1–12) |
 | `release_year` | `int64` | `INT` | Original broadcast/theatrical year |
-| `rating` | `object` | `VARCHAR(20)` | Maturity classification (TV-MA, TV-14, PG-13, R) |
-| `duration` | `object` | `VARCHAR(50)` | Raw composite string (e.g., `90 min`, `2 Seasons`) |
-| `duration_minutes` | *Engineered* | `INT` | Parsed numeric runtime (for Movies) |
-| `seasons_count` | *Engineered* | `INT` | Parsed numeric season count (for TV Shows) |
+| `rating` | `object` | `VARCHAR(20)` | Maturity class (TV-MA, TV-14, PG-13, R) |
+| `duration` | `object` | `VARCHAR(50)` | Raw string (`90 min`, `2 Seasons`) |
+| `duration_minutes` | *Engineered* | `INT` | Parsed runtime (Movies) |
+| `seasons_count` | *Engineered* | `INT` | Parsed seasons (TV Shows) |
 | `listed_in` | `object` | `TEXT` | Genres / categories |
 | `description` | `object` | `TEXT` | Editorial synopsis |
 
 ---
 
-## Repository Structure
+## 📁 Repository Structure
 
 ```
 netflix/
-├── app.py                      # Flask web application entry point & routes
-├── requirements.txt            # Python dependencies (Flask, Gunicorn, Pandas, etc.)
-├── Procfile                    # PaaS process manager configuration (Render / Railway)
-├── runtime.txt                 # Target Python runtime specification (python-3.11.9)
-├── render.yaml                 # Render Infrastructure-as-Code deployment blueprint
-├── Dockerfile                  # Production container definition (python:3.11-slim)
-├── docker-compose.yml          # Container orchestration with health checks
+├── app.py                      # Flask entry point & routes
+├── requirements.txt            # Python dependencies
+├── Procfile                    # PaaS process config (Render / Railway)
+├── runtime.txt                 # Python runtime (python-3.11.9)
+├── render.yaml                 # Render Infrastructure-as-Code blueprint
+├── Dockerfile                  # Production container (python:3.11-slim)
+├── docker-compose.yml          # Orchestration with health checks
 ├── .dockerignore               # Container build exclusions
-├── .env.example                # Safe environment variable configuration template
-├── .gitignore                  # Git exclusions (caches, virtual environments)
-├── README.md                   # Complete project documentation
+├── .env.example                # Environment variable template
+├── .gitignore                  # Git exclusions
+├── README.md                   # Documentation
 │
 ├── config/
-│   └── settings.py             # App, database, and filesystem configuration
+│   └── settings.py             # App, database & filesystem config
 │
 ├── data/
-│   ├── raw/
-│   │   └── netflix_titles.csv  # Original raw Kaggle dataset (2.41 MB)
-│   └── processed/
-│       └── netflix_cleaned.csv # Cleaned & engineered dataset (2.55 MB)
+│   ├── raw/netflix_titles.csv          # Original dataset (2.41 MB)
+│   └── processed/netflix_cleaned.csv   # Cleaned dataset (2.55 MB)
 │
 ├── src/
-│   ├── data_cleaning.py        # Data validation, null imputation, timestamp extraction
-│   ├── data_analysis.py        # Descriptive statistics, distributions, and rankings
-│   ├── database.py             # MySQL connector & SQLite offline query execution
-│   └── visualization.py        # Matplotlib production chart generator
+│   ├── data_cleaning.py        # Validation, imputation, timestamp extraction
+│   ├── data_analysis.py        # Statistics, distributions, rankings
+│   ├── database.py             # MySQL connector & SQLite fallback
+│   └── visualization.py        # Matplotlib chart generator
 │
 ├── sql/
 │   ├── create_database.sql     # Schema initialization
-│   ├── create_tables.sql       # 3NF relational modeling & normalization
-│   └── analysis_queries.sql    # 10 business-critical analytical SQL queries
+│   ├── create_tables.sql       # 3NF modeling & normalization
+│   └── analysis_queries.sql    # 10 analytical queries
 │
 ├── static/
-│   ├── css/
-│   │   └── style.css           # Curated design system, layout, cursor & animations
-│   ├── js/
-│   │   └── main.js             # Accordion, search filter & cursor physics
-│   ├── fonts/                  # Self-hosted Tanker, Space Grotesk, Inter WOFF2 files
-│   ├── icons/                  # Dark/light theme favicons & apple touch icons
+│   ├── css/style.css           # Design system, layout, cursor, animations
+│   ├── js/main.js              # Accordion, search filter, cursor physics
+│   ├── fonts/                  # Self-hosted WOFF2 fonts
+│   ├── icons/                  # Favicons & touch icons
 │   └── images/
-│       ├── charts/             # 8 generated high-res production visualizations
-│       └── *.png               # 4 floating 3D spatial stickers
+│       ├── charts/             # 8 generated visualizations
+│       └── *.png               # 4 floating 3D stickers
 │
 ├── templates/
-│   ├── base.html               # Master layout, navigation, and cursor canvas
-│   ├── index.html              # Overview route (/)
-│   ├── analysis.html           # Exploratory findings route (/analysis)
-│   ├── visualizations.html     # Charts gallery route (/visualizations)
-│   ├── sql_queries.html        # Interactive SQL engine route (/sql-queries)
-│   └── about.html              # Architecture & tech stack route (/about)
+│   ├── base.html               # Master layout & cursor canvas
+│   ├── index.html              # Overview (/)
+│   ├── analysis.html           # Findings (/analysis)
+│   ├── visualizations.html     # Charts (/visualizations)
+│   ├── sql_queries.html        # SQL engine (/sql-queries)
+│   └── about.html              # Architecture (/about)
 │
 ├── tests/
-│   ├── test_cleaning.py        # 8 tests for data cleaning & feature extraction
-│   ├── test_analysis.py        # 7 tests for metrics, aggregations & rankings
-│   └── test_routes.py          # 6 tests for Flask route statuses & HTML payloads
+│   ├── test_cleaning.py        # 8 cleaning & feature tests
+│   ├── test_analysis.py        # 7 metrics & ranking tests
+│   └── test_routes.py          # 6 route & HTML tests
 │
 ├── notebooks/
-│   └── netflix_analysis.ipynb  # Interactive exploratory data notebook
+│   └── netflix_analysis.ipynb  # Exploratory notebook
 │
 └── reports/
-    └── preview.png             # Application preview showcase screenshot
+    └── preview.png             # Preview screenshot
 ```
 
 ---
 
-## Prerequisites
+## ✅ Prerequisites
 
-- **Python**: Version 3.10, 3.11, or 3.12+ (tested up to 3.14)
-- **Pip**: Latest Python package manager (`pip install --upgrade pip`)
-- **Docker** *(Optional, for containerized deployment)*: Docker Desktop 24+ / Docker Engine
-
----
-
-## Local Setup & Installation
-
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/your-username/netflix-analytics.git
-   cd netflix-analytics
-   ```
-
-2. **Create and Activate a Virtual Environment**:
-   - **On Windows (PowerShell)**:
-     ```powershell
-     python -m venv .venv
-     .venv\Scripts\Activate.ps1
-     ```
-   - **On macOS / Linux**:
-     ```bash
-     python3 -m venv .venv
-     source .venv/bin/activate
-     ```
-
-3. **Install Dependencies**:
-   ```bash
-   pip install --upgrade pip
-   pip install -r requirements.txt
-   ```
-
-4. **Configure Environment Variables**:
-   ```bash
-   # Copy the template to create your local .env
-   cp .env.example .env
-   ```
-   *Note: The platform is fully operational out-of-the-box with default fallback values. A live MySQL database is optional; the app automatically utilizes precomputed analytics and in-memory execution.*
+- 🐍 **Python** 3.10, 3.11, or 3.12+ (tested up to 3.14)
+- 📦 **Pip** — latest version (`pip install --upgrade pip`)
+- 🐳 **Docker** *(optional)* — Docker Desktop 24+ / Docker Engine
 
 ---
 
-## Running Locally
+## ⚙️ Local Setup & Installation
 
-### Development Server
+**1. Clone the repository**
+```bash
+git clone https://github.com/IshanBiswas2006/netflix-data-engine.git
+cd netflix-data-engine
+```
+
+**2. Create & activate a virtual environment**
+
+<details>
+<summary><b>🪟 Windows (PowerShell)</b></summary>
+
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+```
+</details>
+
+<details>
+<summary><b>🍎 macOS / 🐧 Linux</b></summary>
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+</details>
+
+**3. Install dependencies**
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+**4. Configure environment variables**
+```bash
+cp .env.example .env
+```
+
+> 💡 The platform works out-of-the-box with default fallbacks. A live MySQL database is optional — the app automatically uses precomputed analytics and in-memory execution.
+
+---
+
+## ▶️ Running Locally
+
+**Development server**
 ```bash
 python app.py
 ```
-Open your browser to `http://localhost:5000/`.
+Open **http://localhost:5000/**
 
-### Production WSGI Server (Gunicorn)
-To run the production WSGI server locally (macOS/Linux or Windows with WSL):
+**Production WSGI server (Gunicorn)**
 ```bash
 gunicorn --workers=2 --threads=4 --bind=0.0.0.0:5000 app:app
 ```
 
 ---
 
-## Automated Testing
+## 🧪 Automated Testing
 
-Run the comprehensive test suite with Pytest:
 ```bash
 pytest -v
 ```
 
-Expected output:
 ```
 tests/test_cleaning.py ........                                          [ 38%]
 tests/test_analysis.py .......                                           [ 71%]
@@ -253,88 +291,79 @@ tests/test_routes.py ......                                              [100%]
 
 ---
 
-## Environment Variables
+## 🔐 Environment Variables
 
-| Variable | Default Value | Description |
+| Variable | Default | Description |
 | :--- | :--- | :--- |
-| `PORT` | `5000` | Port on which the HTTP server listens |
-| `FLASK_ENV` | `production` | Set to `development` for auto-reloading |
-| `DEBUG` | `False` *(in production)* | Controls Flask debug mode |
-| `SECRET_KEY` | *(Generated random string)* | Used for session signing |
-| `DB_HOST` | `localhost` | MySQL hostname (optional) |
-| `DB_PORT` | `3306` | MySQL port (optional) |
-| `DB_USER` | `root` | MySQL username (optional) |
-| `DB_PASSWORD` | `""` | MySQL password (optional) |
-| `DB_NAME` | `netflix_analysis` | MySQL database name (optional) |
+| `PORT` | `5000` | HTTP server port |
+| `FLASK_ENV` | `production` | Set `development` for auto-reload |
+| `DEBUG` | `False` | Flask debug mode |
+| `SECRET_KEY` | *(random)* | Session signing |
+| `DB_HOST` | `localhost` | MySQL host *(optional)* |
+| `DB_PORT` | `3306` | MySQL port *(optional)* |
+| `DB_USER` | `root` | MySQL user *(optional)* |
+| `DB_PASSWORD` | `""` | MySQL password *(optional)* |
+| `DB_NAME` | `netflix_analysis` | MySQL database *(optional)* |
 
 ---
 
-## Deployment Method A: Render / PaaS Cloud Web Service
+## ☁️ Deployment Method A: Render / PaaS
 
-[Render](https://render.com/) is a modern cloud hosting platform ideal for Python Flask WSGI services with native Gunicorn support and zero server maintenance.
+🔴 **Currently live at → [netflix-analytics-2uzs.onrender.com](https://netflix-analytics-2uzs.onrender.com/)**
 
-### Option 1: One-Click Blueprint Deployment via `render.yaml`
-1. Push your repository to **GitHub** or **GitLab**.
-2. Log in to your [Render Dashboard](https://dashboard.render.com/).
+### Option 1 — One-Click Blueprint (`render.yaml`)
+1. Push the repo to **GitHub** or **GitLab**.
+2. Open the [Render Dashboard](https://dashboard.render.com/).
 3. Click **New +** → **Blueprint**.
-4. Connect this repository. Render automatically reads [`render.yaml`](render.yaml) and preconfigures:
+4. Connect the repo — Render reads [`render.yaml`](render.yaml) and preconfigures:
    - **Environment**: Python 3.11.9
-   - **Build Command**: `pip install --upgrade pip && pip install -r requirements.txt`
-   - **Start Command**: `gunicorn --workers=2 --threads=4 --timeout=60 --bind=0.0.0.0:$PORT app:app`
-   - **Port**: Bound to Render's dynamic `$PORT`
-5. Click **Apply**. Your service deploys in ~2 minutes with free SSL.
+   - **Build**: `pip install --upgrade pip && pip install -r requirements.txt`
+   - **Start**: `gunicorn --workers=2 --threads=4 --timeout=60 --bind=0.0.0.0:$PORT app:app`
+   - **Port**: Render's dynamic `$PORT`
+5. Click **Apply** — live in ~2 minutes with free SSL.
 
-### Option 2: Manual Web Service Setup
-1. In Render, select **New +** → **Web Service**.
-2. Select your repository.
-3. Configure settings:
+### Option 2 — Manual Web Service
+1. **New +** → **Web Service** → select your repo.
+2. Configure:
    - **Name**: `netflix-analytics`
-   - **Region**: Any preferred region (e.g., Oregon, Frankfurt)
-   - **Branch**: `main` (or `master`)
+   - **Region**: Any (e.g., Oregon, Frankfurt)
+   - **Branch**: `master`
    - **Runtime**: `Python 3`
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `gunicorn --workers=2 --threads=4 --bind=0.0.0.0:$PORT app:app`
-4. Under **Environment Variables**, add:
-   - `PYTHON_VERSION`: `3.11.9`
-   - `FLASK_ENV`: `production`
-   - `SECRET_KEY`: *(Click Generate)*
-5. Click **Create Web Service**.
+   - **Build**: `pip install -r requirements.txt`
+   - **Start**: `gunicorn --workers=2 --threads=4 --bind=0.0.0.0:$PORT app:app`
+3. Add environment variables:
+   - `PYTHON_VERSION` = `3.11.9`
+   - `FLASK_ENV` = `production`
+   - `SECRET_KEY` = *(Generate)*
+4. Click **Create Web Service**.
 
 ---
 
-## Deployment Method B: Docker & Docker Compose Containerization
+## 🐳 Deployment Method B: Docker & Docker Compose
 
-Containerization packages the application, Python runtime, Gunicorn WSGI server, datasets, and static assets into an immutable, self-contained Linux container that runs anywhere (AWS ECS, Google Cloud Run, Azure App Service, DigitalOcean, or Linux VPS).
+Packages the app, runtime, Gunicorn, datasets, and static assets into one immutable container — runs on AWS ECS, Google Cloud Run, Azure App Service, DigitalOcean, or any Linux VPS.
 
-### 1. Build & Run with Docker Compose
+### Docker Compose
 ```bash
 docker compose up -d --build
 ```
-- Access the application at `http://localhost:5000/`.
-- Check container health status:
-  ```bash
-  docker compose ps
-  ```
-- View live server logs:
-  ```bash
-  docker compose logs -f
-  ```
-- Stop the container:
-  ```bash
-  docker compose down
-  ```
 
-### 2. Standalone Docker Build & Run
+| Task | Command |
+| :--- | :--- |
+| Health status | `docker compose ps` |
+| Live logs | `docker compose logs -f` |
+| Stop | `docker compose down` |
+
+App runs at **http://localhost:5000/**
+
+### Standalone Docker
 ```bash
-# Build production image
 docker build -t netflix-analytics:latest .
-
-# Run container on port 5000
 docker run -d -p 5000:5000 --name netflix_app --restart unless-stopped netflix-analytics:latest
 ```
 
-### 3. Deploy to Google Cloud Run or AWS App Runner
-Because the `Dockerfile` uses standard environment variable `$PORT` binding and features an integrated health check (`HEALTHCHECK curl -f http://localhost:5000/`), it can be deployed directly to Google Cloud Run or AWS App Runner:
+### Google Cloud Run / AWS App Runner
+The `Dockerfile` binds to `$PORT` and includes `HEALTHCHECK curl -f http://localhost:5000/`:
 ```bash
 gcloud run deploy netflix-analytics \
   --source . \
@@ -345,36 +374,47 @@ gcloud run deploy netflix-analytics \
 
 ---
 
-## Asset & Path Validation
+## 🔍 Asset & Path Validation
 
-A strict automated audit of all 25 template references, CSS font imports, and static links verified:
-- **0 Broken Links**: All template `url_for('static', filename=...)` targets resolve.
-- **0 Missing Fonts**: All `@font-face` declarations map to existing `.woff2` files.
-- **Case Sensitivity Compliant**: All file paths use strict lowercase and hyphens, preventing 404 errors on Linux-based container hosts.
+Automated audit of all 25 template references, CSS font imports, and static links:
 
----
-
-## Performance & Size Optimization Report
-
-During the deployment optimization audit:
-- **Duplicate Root Reference Files Removed**: 118 duplicate files (`about.html`, `index.html`, `server.js`, `package.json`, `about/`, `assets/`) dropped from repository root.
-- **Unreferenced Assets Removed**: 54 unused project mockups removed from `static/images/` without altering any referenced stickers or charts.
-- **Asset Size Reduction**:
-  - `static/` directory reduced from **24.20 MB** to **3.83 MB** (**84.2% reduction**).
-  - Total deployable application runtime payload reduced from **~59.2 MB** to **8.71 MB** (**85.3% reduction**).
-- **WSGI Concurrency**: Added `gunicorn` with 2 worker processes and 4 threads per worker to handle concurrent requests under production traffic.
+- ✅ **0 Broken Links** — every `url_for('static', filename=...)` resolves
+- ✅ **0 Missing Fonts** — every `@font-face` maps to an existing `.woff2`
+- ✅ **Case-Sensitivity Compliant** — lowercase/hyphenated paths, safe for Linux hosts
 
 ---
 
-## Known Limitations & Future Scope
+## 🚀 Performance & Size Optimization Report
 
-1. **MySQL Offline Fallback**: In serverless hosting where an external MySQL instance is not attached, the application seamlessly utilizes precomputed dataset analytics. To attach an external MySQL instance, provide `DB_HOST`, `DB_USER`, and `DB_PASSWORD` in your cloud dashboard.
-2. **Catalog Horizon**: The dataset covers catalog additions through 2020. Ingestion scripts in `src/data_cleaning.py` are modular and ready for refreshed Kaggle datasets.
+| Optimization | Result |
+| :--- | :--- |
+| 🗑️ Duplicate root files removed | **118** files dropped |
+| 🖼️ Unreferenced assets removed | **54** unused mockups |
+| 📉 `static/` directory | 24.20 MB → **3.83 MB** (**−84.2%**) |
+| 📦 Total runtime payload | ~59.2 MB → **8.71 MB** (**−85.3%**) |
+| ⚡ WSGI concurrency | Gunicorn · 2 workers × 4 threads |
 
 ---
 
-## License & Attributions
+## 🧭 Known Limitations & Future Scope
 
-- **Code & Application**: Distributed under the [MIT License](LICENSE).
-- **Dataset**: Provided by Shivam Bansal on [Kaggle](https://www.kaggle.com/datasets/shivamb/netflix-shows).
-- **Design Inspiration**: Reference layout inspired by modern dark-mode aesthetic standards.
+1. **MySQL Offline Fallback** — Without an external MySQL instance, the app uses precomputed analytics. To attach one, set `DB_HOST`, `DB_USER`, and `DB_PASSWORD` in your cloud dashboard.
+2. **Catalog Horizon** — Data covers additions through 2020. Scripts in `src/data_cleaning.py` are modular and ready for refreshed Kaggle datasets.
+
+---
+
+## 📜 License & Attributions
+
+- **Code & Application**: [MIT License](LICENSE)
+- **Dataset**: Shivam Bansal on [Kaggle](https://www.kaggle.com/datasets/shivamb/netflix-shows)
+- **Design Inspiration**: Modern dark-mode aesthetic standards
+
+<div align="center">
+
+<br>
+
+**⭐ If you found this project useful, consider giving it a star! ⭐**
+
+[🚀 View Live Demo](https://netflix-analytics-2uzs.onrender.com/)
+
+</div>
